@@ -1,5 +1,6 @@
 import Card from "../helpers/card";
 import Zone from "../helpers/zone";
+import Dealer from "../helpers/dealer";
 import io from 'socket.io-client';
 
 export default class Game extends Phaser.Scene {
@@ -19,9 +20,12 @@ create() {
 
     this.isPlayerA = false;
 
+    this.opponentCards = []
+
     this.zone = new Zone(this);
     this.dropZone = this.zone.renderZone();
     this.outline = this.zone.renderOutline(this.dropZone);
+    this.dealer = new Dealer(this);
 
 
     this.socket = io(`http://localhost:3000`)
@@ -34,12 +38,6 @@ create() {
         self.isPlayerA = true
     })
 
-    this.dealCards = () => {
-        for (let i = 0; i < 5; i++) {
-            let playerCard = new Card(this);
-            playerCard.render(275 + (i * 100), 650, 'cyanCardFront');
-        }
-    }
 
     this.dealText = this.add.text(75, 350, ['DEAL CARDS']).setFontSize(18).setFontFamily('Trebuchet MS').setColor('#00ffff').setInteractive();
 
