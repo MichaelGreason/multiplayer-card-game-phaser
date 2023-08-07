@@ -17,9 +17,7 @@ preload() {
 }
 create() {
     let self = this;
-
     this.isPlayerA = false;
-
     this.opponentCards = []
 
     this.zone = new Zone(this);
@@ -38,11 +36,15 @@ create() {
         self.isPlayerA = true
     })
 
+    this.socket.on('dealCards', function () {
+        self.dealer.dealCards();
+        self.dealText.disableInteractive();
+    })
 
     this.dealText = this.add.text(75, 350, ['DEAL CARDS']).setFontSize(18).setFontFamily('Trebuchet MS').setColor('#00ffff').setInteractive();
 
     this.dealText.on('pointerdown', function() {
-        self.dealCards()
+        self.socket.emit('dealCards')
     })
 
     this.dealText.on('pointerover', function () {
