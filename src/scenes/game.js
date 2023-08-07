@@ -1,5 +1,6 @@
 import Card from "../helpers/card";
 import Zone from "../helpers/zone";
+import io from 'socket.io/client';
 
 export default class Game extends Phaser.Scene {
 constructor() {
@@ -20,6 +21,12 @@ create() {
     this.dropZone = this.zone.renderZone();
     this.outline = this.zone.renderOutline(this.dropZone);
 
+
+    this.socket = io('http://localhost3000')
+
+    this.socket.on('connect', function() {
+        console.log('Connected!');
+    })
 
     this.dealCards = () => {
         for (let i = 0; i < 5; i++) {
@@ -67,6 +74,8 @@ create() {
         gameObject.y = dropZone.y;
         gameObject.disableInteractive()
     })
+
+
 }
 update() {
 
