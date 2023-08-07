@@ -17,6 +17,8 @@ preload() {
 create() {
     let self = this;
 
+    this.isPlayerA = false;
+
     this.zone = new Zone(this);
     this.dropZone = this.zone.renderZone();
     this.outline = this.zone.renderOutline(this.dropZone);
@@ -26,6 +28,10 @@ create() {
 
     this.socket.on('connect', function() {
         console.log('Connected!');
+    })
+
+    this.socket.on('isPlayerA', function () {
+        self.isPlayerA = true
     })
 
     this.dealCards = () => {
