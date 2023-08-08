@@ -18,7 +18,7 @@ preload() {
 create() {
     let self = this;
     this.isPlayerA = false;
-    this.opponentCards = []
+    this.opponentCards = [];
 
     this.zone = new Zone(this);
     this.dropZone = this.zone.renderZone();
@@ -43,17 +43,17 @@ create() {
 
     this.dealText = this.add.text(75, 350, ['DEAL CARDS']).setFontSize(18).setFontFamily('Trebuchet MS').setColor('#00ffff').setInteractive();
 
-    this.dealText.on('pointerdown', function() {
-        self.socket.emit('dealCards')
+    this.dealText.on('pointerdown', function () {
+        self.socket.emit('dealCards');
     })
 
     this.dealText.on('pointerover', function () {
             self.dealText.setColor('#ff69b4')
-        })
+    })
 
     this.dealText.on('pointerout', function () {
             self.dealText.setColor('#00ffff')
-        })
+    })
 
     this.input.on('dragstart', function (pointer, gameObject,) {
         gameObject.setTint(0xff69b4);
